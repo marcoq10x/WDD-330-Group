@@ -2,7 +2,11 @@ import { getLocalStorage } from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
-  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+  if (!cartItems)
+    document.querySelector(".product-list").innerHTML = "Cart is empty!";
+
+  const cartAry = Object.values(cartItems);
+  const htmlItems = cartAry.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
 }
 

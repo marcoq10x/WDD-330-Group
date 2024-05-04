@@ -1,9 +1,14 @@
-import { setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 import { findProductById } from "./productData.mjs";
 
 function addProductToCart(product) {
-  setLocalStorage("so-cart", product);
+  let cartItems = getLocalStorage("so-cart");
+  if (!cartItems) cartItems = {};
+
+  cartItems[product.Id] = product;
+  setLocalStorage("so-cart", cartItems);
 }
+
 // add to cart button event handler
 async function addToCartHandler(e) {
   const product = await findProductById(e.target.dataset.id);
