@@ -11,8 +11,17 @@ function addProductToCart(product) {
 
 // add to cart button event handler
 async function addToCartHandler(e) {
-  const product = await findProductById(e.target.dataset.id);
-  addProductToCart(product);
+  e.preventDefault(); // Prevents default button click behavior
+  try {
+    const product = await findProductById(e.target.dataset.id);
+    if (product) {
+      addProductToCart(product);
+    } else {
+      console.error("Product not found");
+    }
+  } catch (error) {
+    console.error("Error adding product to cart:", error);
+  }
 }
 
 // add listener to Add to Cart button
