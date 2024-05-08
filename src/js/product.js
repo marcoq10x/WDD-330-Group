@@ -2,13 +2,11 @@ import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 import { findProductById } from "./productData.mjs";
 
 function addProductToCart(product) {
-  let currentCart = getLocalStorage("so-cart");
-  if (!Array.isArray(currentCart)) {
-    // This will check if the currentCart is actually an array
-    currentCart = []; // If not, initialize it as an empty array
-  }
-  currentCart.push(product); // Add new product to the cart array
-  setLocalStorage("so-cart", currentCart); // Save updated cart back to localStorage
+  let cartItems = getLocalStorage("so-cart");
+  if (!cartItems) cartItems = {};
+
+  cartItems[product.Id] = product;
+  setLocalStorage("so-cart", cartItems);
 }
 
 // add to cart button event handler
