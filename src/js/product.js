@@ -24,8 +24,10 @@ async function addToCartHandler(e) {
     console.error("Error adding product to cart:", error);
   }
 }
+const productId = getParam("product");
+console.log(findProductById(productId));
+productDetails(productId);
 
-console.log(findProductById(getParam(Id)));
 
 // add listener to Add to Cart button
 document
@@ -33,5 +35,3 @@ document
   .addEventListener("click", addToCartHandler);
 
 
-const productId = getParam("product");
-productDetails(productId);
