@@ -30,3 +30,13 @@ export function getParam(param) {
   const product = urlParams.get(param);
   return product;
 }
+
+export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = true) {
+  const htmlStrings = list.map((item) => templateFn(item));
+  const filter = filterProducts(htmlStrings);
+  document.getElementById(parentElement).insertAdjacentHTML(position, filter.join(""));
+}
+
+export function filterProducts(products, limit = 4) {
+  return products.slice(0, limit);
+}
