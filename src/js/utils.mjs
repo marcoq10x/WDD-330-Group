@@ -31,7 +31,13 @@ export function getParam(param) {
   return product;
 }
 
-export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = true) {
+export function renderListWithTemplate(
+  templateFn, 
+  parentElement, 
+  list, 
+  position = "afterbegin", 
+  clear = true
+) {
   const htmlStrings = list.map((item) => templateFn(item));
   const filter = filterProducts(htmlStrings);
   document.getElementById(parentElement).insertAdjacentHTML(position, filter.join(""));

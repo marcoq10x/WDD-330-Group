@@ -9,7 +9,7 @@ export default async function productList(selector, category) {
 
 function productItemTemplate(item) {
   return `<li class="product-card">
-    <a href="${item.Id}">
+    <a href="/product_pages/?product=${item.Id}">
       <img
         src="${item.Image}"
         alt="Marmot Ajax tent"
