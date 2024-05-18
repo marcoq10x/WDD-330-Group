@@ -3,8 +3,8 @@ import { getData } from "./productData.mjs";
 
 export default async function productList(selector, category) {
   const products = await getData(category);
-  const items = Object.values(products);
-  renderListWithTemplate(productItemTemplate, selector, items);
+  console.log(`products: ${JSON.stringify(products)}`)
+  renderListWithTemplate(productItemTemplate, selector, products);
 }
 
 function productItemTemplate(item) {
@@ -12,7 +12,6 @@ function productItemTemplate(item) {
     <a href="/product_pages/?product=${item.Id}">
       <img
         src="${item.Image}"
-        alt="Marmot Ajax tent"
       />
       <h3 class="card__brand">${item.Brand.Name}</h3>
       <h2 class="card__name">${item.NameWithoutBrand}</h2>
