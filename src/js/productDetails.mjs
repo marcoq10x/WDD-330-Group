@@ -4,7 +4,6 @@ import { getParam, getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 export default async function productDetails(productID) {
     let productData = await findProductById(productID);
-    console.log(`PRODUCT DATA: ${productData}`);
     renderProductDetails(productData);
 
     document.getElementById("addToCart").addEventListener("click", addToCartHandler);
@@ -59,8 +58,6 @@ function calculateDiscount() {
 document.addEventListener("DOMContentLoaded", async () => {
     // Get the product ID from the URL parameters
     const productID = getParam("product");
-    console.log(productID);
-
     if (productID) {
         try {
             let productData = await findProductById(productID);
@@ -83,7 +80,6 @@ async function addToCartHandler(e) {
   e.preventDefault(); // Prevents default button click behavior
   try {
     const product = await findProductById(e.target.dataset.id);
-    console.log(product);
     if (product) {
       addProductToCart(product);
     } else {

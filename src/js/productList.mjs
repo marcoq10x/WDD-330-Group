@@ -3,7 +3,6 @@ import { getData } from "./productData.mjs";
 
 export default async function productList(selector, category) {
   const products = await getData(category);
-  console.log(`products: ${JSON.stringify(products)}`)
   renderListWithTemplate(productItemTemplate, selector, products);
 }
 
