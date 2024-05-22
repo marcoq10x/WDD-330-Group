@@ -11,8 +11,8 @@ export default async function productDetails(productID) {
 
 export function addProductToCart(product) {
   let cartItems = getLocalStorage("so-cart");
-  if (!cartItems) cartItems = {}; 
-
+  if (!cartItems) cartItems = {};
+  animateCart();
   cartItems[product.Id] = product;
   setLocalStorage("so-cart", cartItems);
 }
@@ -27,7 +27,7 @@ function renderProductDetails(productData) {
   document.getElementById("productRetailPrice").innerHTML = `Suggested Price: $ <span class="strikethrough">${productData.SuggestedRetailPrice}</span>`;
   document.getElementById("productFinalPrice").innerHTML = `<strong>Final Price: $ ${productData.FinalPrice}</strong>`;
   document.getElementById("productColorName").innerHTML = productData.Colors[0].ColorName;
-  document.querySelector("#productDescriptionHtmlSimple").insertAdjacentHTML("afterbegin", productData.DescriptionHtmlSimple);
+  document.querySelector("#productDescriptionHtmlSimple").innerHTML = productData.DescriptionHtmlSimple;
   document.getElementById("addToCart").dataset.id = productData.Id;
 }
 
@@ -89,7 +89,6 @@ async function addToCartHandler(e) {
     const product = await findProductById(e.target.dataset.id);
     if (product) {
       addProductToCart(product);
-      animateCart();
     } else {
       console.error("Product not found");
     }
