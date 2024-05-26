@@ -18,24 +18,24 @@ export function addProductToCart(product) {
 }
 
 
-// ------Updates to add a visual indicator of how much a product is discounted to the product listing page.
+// ------Updates to add a visual indicator of how much a product is discounted to the product listing page------
 function renderProductDetails(productData) {
-  document.getElementById("productName").innerHTML = productData.Brand.Name;
-  document.getElementById("productNameWithoutBrand").innerHTML = productData.NameWithoutBrand;
-  document.getElementById("productImage").src = productData.Image;
-  document.getElementById("productImage").setAttribute("alt", productData.Name);
-  document.getElementById("productRetailPrice").innerHTML = `Suggested Price: $ <span class="strikethrough">${productData.SuggestedRetailPrice}</span>`;
-  document.getElementById("productFinalPrice").innerHTML = `<strong>Final Price: $ ${productData.FinalPrice}</strong>`;
-  document.getElementById("productColorName").innerHTML = productData.Colors[0].ColorName;
+  document.querySelector("#productName").innerHTML = productData.Brand.Name;
+  document.querySelector("#productNameWithoutBrand").innerHTML = productData.NameWithoutBrand;
+  document.querySelector("#productImage").src = productData.Image;
+  document.querySelector("#productImage").setAttribute("alt", productData.Name);
+  document.querySelector("#productRetailPrice").innerHTML = `Suggested Price: $ <span class="strikethrough">${productData.SuggestedRetailPrice}</span>`;
+  document.querySelector("#productFinalPrice").innerHTML = `<strong>Final Price: $ ${productData.FinalPrice}</strong>`;
+  document.querySelector("#productColorName").innerHTML = productData.Colors[0].ColorName;
   document.querySelector("#productDescriptionHtmlSimple").innerHTML = productData.DescriptionHtmlSimple;
-  document.getElementById("addToCart").dataset.id = productData.Id;
+  document.querySelector("#addToCart").dataset.id = productData.Id;
 }
 
 // Calculate how much a product is discounted
 function calculateDiscount() {
   const retailPriceElement = document.querySelector("#productRetailPrice .strikethrough");
-  const finalPriceElement = document.getElementById("productFinalPrice");
-  const discountElement = document.getElementById("productDiscount");
+  const finalPriceElement = document.querySelector("#productFinalPrice");
+  const discountElement = document.querySelector("#productDiscount");
 
   // Change strings values to numbers
   const retailPrice = parseFloat(retailPriceElement.textContent.trim());
@@ -71,9 +71,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-// -----End of add a visual indicator of how much a product is discounted to the product listing page---
+// -----End of add a visual indicator of how much a product is discounted to the product listing page------
 
-// Animates the cart icon when a product is added to the cart
+// animates the cart icon when a product is added to the cart
 function animateCart() {
   const cartIcon = document.querySelector(".cart");
   cartIcon.classList.add("cart-animation");

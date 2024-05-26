@@ -47,41 +47,34 @@ export function filterProducts(products, limit = 4) {
 }
 
 function loadTemplate (path) {
-    // wait what?  we are returning a new function?
-    // this is called currying and can be very helpful.
-        return async function () {
- const res = await fetch(path);
-        if (res.ok) {
-        const html = await res.text();
-   //     console.log(html)
-        return html;
-
-        }
-    };
-  }
+  return async function () {
+    const res = await fetch(path);
+    if (res.ok) {
+      const html = await res.text();
+      return html;
+    }
+  };
+}
 
 export async function renderWithTemplate(templateFn, parentElement, data, callback, position="afterbegin", clear=true) {
-    // get template using function...no need to loop this time.
-    if (clear) {
-        parentElement.innerHTML = "";
-    }
-    const htmlString = await templateFn(data);
-    parentElement.insertAdjacentHTML(position, htmlString);
-    if(callback) {
-        callback(data);
-    }
+  if (clear) {
+    parentElement.innerHTML = "";
+  }
+  const htmlString = await templateFn(data);
+  parentElement.insertAdjacentHTML(position, htmlString);
+  if(callback) {
+    callback(data);
+  }
 }
 
 export function loadHeaderFooter (){
-  //console.log(loadTemplate("../public/partials/header.html"))
   const headerTemplateFN = loadTemplate("/partials/header.html")
   const footerTemplateFN = loadTemplate("/partials/footer.html");
 
   const headerEl = document.getElementById("header");
-  const footerEl = document.getElementById("header");
-
+  const footerEl = document.getElementById("footer");
 
   renderWithTemplate(headerTemplateFN, headerEl);
- // renderWithTemplate(footerTemplateFN,footerEl);
+  renderWithTemplate(footerTemplateFN,footerEl);
 }
 
