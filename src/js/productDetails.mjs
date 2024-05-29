@@ -15,6 +15,7 @@ export function addProductToCart(product) {
   animateCart();
   cartItems[product.Id] = product;
   setLocalStorage("so-cart", cartItems);
+  updateNumItems();
 }
 
 
@@ -80,6 +81,13 @@ function animateCart() {
   setTimeout(() => {
     cartIcon.classList.remove("cart-animation");
   }, 1000);
+}
+
+// Update Number of Items in Cart
+export function updateNumItems() {
+  const cartItems = getLocalStorage("so-cart");
+  const numItems = Object.keys(cartItems).length;
+  setLocalStorage("num-cart", numItems);
 }
 
 // add to cart button event handler

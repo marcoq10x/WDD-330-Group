@@ -73,15 +73,17 @@ export async function renderWithTemplate(templateFn, parentElement, data, callba
 }
 
 export function loadHeaderFooter (){
-  //console.log(loadTemplate("../public/partials/header.html"))
+  
   const headerTemplateFN = loadTemplate("/partials/header.html")
   const footerTemplateFN = loadTemplate("/partials/footer.html");
 
+  
   const headerEl = document.getElementById("header");
-  const footerEl = document.getElementById("header");
+
+  const footerEl = document.getElementById("footer");
 
 
   renderWithTemplate(headerTemplateFN, headerEl);
- // renderWithTemplate(footerTemplateFN,footerEl);
+  renderWithTemplate(footerTemplateFN,footerEl);
 }
 
