@@ -19,7 +19,7 @@ export async function buildAlerts() {
   try {
     console.log(alerts)
       if (alerts.length > 0) {
-        let alertCard = `<section class="alert-list">`;
+        let alertCard = `<section id="alertSection" class="alert-list">`;
         for (let alert of alerts){
           alertCard += `<p style="background: ${alert.background}; color: ${alert.color}" >${alert.message}</p>`
         }

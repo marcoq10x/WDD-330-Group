@@ -1,4 +1,4 @@
-import { buildAlerts, getAlerts } from "./alert.mjs";
+import { buildAlerts } from "./alert.mjs";
 import productList from "./productList.mjs";
 import { loadHeaderFooter } from "./utils.mjs";
 
