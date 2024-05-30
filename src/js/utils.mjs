@@ -31,10 +31,10 @@ export function getParam(param) {
 }
 
 export function renderListWithTemplate(
-  templateFn, 
-  parentElement, 
-  list, 
-  position = "afterbegin", 
+  templateFn,
+  parentElement,
+  list,
+  position = "afterbegin",
   clear = true
 ) {
   const htmlStrings = list.map((item) => templateFn(item));
@@ -63,25 +63,54 @@ function loadTemplate (path) {
 export async function renderWithTemplate(templateFn, parentElement, data, callback, position="afterbegin", clear=true) {
     // get template using function...no need to loop this time.
     if (clear) {
+      
         parentElement.innerHTML = "";
     }
     const htmlString = await templateFn(data);
     parentElement.insertAdjacentHTML(position, htmlString);
+
     if(callback) {
         callback(data);
+    }
+        // Render the updated Cart Bage
+    const badge = document.querySelector("sup");
+   
+    const badgeNum = getLocalStorage("num-cart")
+    badge.innerText = badgeNum
+    console.log(badgeNum);
+    if (badgeNum < 1) {
+      console.log("DO WE GET HERE", badgeNum);
+      badge.hidden = true;
     }
 }
 
 export function loadHeaderFooter (){
-  //console.log(loadTemplate("../public/partials/header.html"))
   const headerTemplateFN = loadTemplate("/partials/header.html")
   const footerTemplateFN = loadTemplate("/partials/footer.html");
 
   const headerEl = document.getElementById("header");
-  const footerEl = document.getElementById("header");
-
+  const footerEl = document.getElementById("footer");
 
   renderWithTemplate(headerTemplateFN, headerEl);
- // renderWithTemplate(footerTemplateFN,footerEl);
+  renderWithTemplate(footerTemplateFN,footerEl);
+}
+
+
+export function updateCartBadge(addToCart) {
+  let cartItems = getLocalStorage("num-cart");
+  console.log("before: ", cartItems);
+
+  if(addToCart){
+    cartItems++;
+  } else {
+    if (cartItems > 0) {
+      cartItems--;
+    } else {
+      cartItems = 0;
+    }
+  }
+    console.log("after: ", cartItems);
+  setLocalStorage("num-cart", cartItems);
+  loadHeaderFooter();
 }
 

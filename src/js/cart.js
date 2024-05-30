@@ -1,4 +1,6 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, loadHeaderFooter, updateCartBadge} from "./utils.mjs";
+
+loadHeaderFooter();
 
 function renderCartContents() {
  const cartList = document.querySelector(".cart-product-list");
@@ -28,10 +30,13 @@ export async function removeFromCartHandler(e) {
     // get the cart, remove the item, and then save the new cart.
     let oldCart = Object.values(getLocalStorage("so-cart"));
     const newCart = oldCart.filter(item => item.Id !== productData);
-    localStorage.clear();
+   
     if (newCart.length > 0){ // don't set an empty key to localStorage
        setLocalStorage("so-cart", newCart);
+    } else {
+      localStorage.removeItem("so-cart")
     }
+    updateCartBadge(false)
       renderCartContents();
 
 
