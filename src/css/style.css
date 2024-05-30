@@ -125,10 +125,11 @@ sup {
   text-align: center;
   line-height: 1.05em;
   border-radius: 50%;
+  font-weight: bold;
   font-size: 1em;
-  
-
+  box-shadow: 0 0 5px rgb(0, 0, 0, 0.3);
 }
+
 .cart:hover svg {
   fill: gray;
 }

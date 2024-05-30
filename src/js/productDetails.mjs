@@ -1,6 +1,6 @@
 
 import { findProductById } from "./productData.mjs";
-import { getParam, getLocalStorage, setLocalStorage, loadHeaderFooter } from "./utils.mjs";
+import { getParam, getLocalStorage, setLocalStorage, loadHeaderFooter, updateCartBadge } from "./utils.mjs";
 
 export default async function productDetails(productID) {
   let productData = await findProductById(productID);
@@ -15,7 +15,7 @@ export function addProductToCart(product) {
   animateCart();
   cartItems[product.Id] = product;
   setLocalStorage("so-cart", cartItems);
-  updateNumItems();
+  updateCartBadge(true)
 }
 
 
@@ -82,16 +82,6 @@ function animateCart() {
   setTimeout(() => {
     cartIcon.classList.remove("cart-animation");
   }, 1000);
-}
-
-// Update Number of Items in Cart
-export function updateNumItems() {
-  const cartItems = getLocalStorage("so-cart");
-  const numItems = Object.keys(cartItems).length;
-  
-  console.log("CART SHOUDL UPDATE WITH" + numItems)
-  setLocalStorage("num-cart", numItems);
-  loadHeaderFooter();
 }
 
 // add to cart button event handler
