@@ -1,12 +1,12 @@
 
 import { findProductById } from "./productData.mjs";
-import { getParam, getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { getParam, getLocalStorage, setLocalStorage, loadHeaderFooter } from "./utils.mjs";
 
 export default async function productDetails(productID) {
   let productData = await findProductById(productID);
   renderProductDetails(productData);
-
   document.getElementById("addToCart").addEventListener("click", addToCartHandler);
+ 
 }
 
 export function addProductToCart(product) {
@@ -64,6 +64,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       let productData = await findProductById(productID);
       renderProductDetails(productData);
       calculateDiscount();
+      loadHeaderFooter()
     } catch (error) {
       console.error("Error fetching product data:", error);
     }
@@ -87,7 +88,10 @@ function animateCart() {
 export function updateNumItems() {
   const cartItems = getLocalStorage("so-cart");
   const numItems = Object.keys(cartItems).length;
+  
+  console.log("CART SHOUDL UPDATE WITH" + numItems)
   setLocalStorage("num-cart", numItems);
+  loadHeaderFooter();
 }
 
 // add to cart button event handler

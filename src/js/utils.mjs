@@ -63,6 +63,7 @@ function loadTemplate (path) {
 export async function renderWithTemplate(templateFn, parentElement, data, callback, position="afterbegin", clear=true) {
     // get template using function...no need to loop this time.
     if (clear) {
+      
         parentElement.innerHTML = "";
     }
     const htmlString = await templateFn(data);
@@ -73,17 +74,13 @@ export async function renderWithTemplate(templateFn, parentElement, data, callba
 }
 
 export function loadHeaderFooter (){
-  
   const headerTemplateFN = loadTemplate("/partials/header.html")
   const footerTemplateFN = loadTemplate("/partials/footer.html");
 
-  
   const headerEl = document.getElementById("header");
-
   const footerEl = document.getElementById("footer");
 
-
-  renderWithTemplate(headerTemplateFN, headerEl);
+   renderWithTemplate(headerTemplateFN, headerEl);
   renderWithTemplate(footerTemplateFN,footerEl);
 }
 
