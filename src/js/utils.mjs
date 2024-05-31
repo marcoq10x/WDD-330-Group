@@ -47,18 +47,14 @@ export function filterProducts(products, limit = 4) {
 }
 
 function loadTemplate (path) {
-    // wait what?  we are returning a new function?
-    // this is called currying and can be very helpful.
-        return async function () {
- const res = await fetch(path);
-        if (res.ok) {
-        const html = await res.text();
-   //     console.log(html)
-        return html;
-
-        }
-    };
-  }
+  return async function () {
+    const res = await fetch(path);
+    if (res.ok) {
+      const html = await res.text();
+      return html;
+    }
+  };
+}
 
 export async function renderWithTemplate(templateFn, parentElement, data, callback, position="afterbegin", clear=true) {
     // get template using function...no need to loop this time.
