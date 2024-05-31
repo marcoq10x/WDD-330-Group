@@ -63,7 +63,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (productID) {
     try {
       let productData = await findProductById(productID);
-      console.log("PRODUCT DATA: ", productData)
       renderProductDetails(productData);
       calculateDiscount();
       loadHeaderFooter()
@@ -80,14 +79,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 // animates the cart icon when a product is added to the cart
 function animateCart() {
   const cartIcon = document.querySelector(".cart");
-  console.log("Cart Icon" , cartIcon);
   cartIcon.classList.add("cart-animation");
-  console.log("Cart Icon" , cartIcon);
-  setTimeout(() => {
+
+  setTimeout(() => { 
     cartIcon.classList.remove("cart-animation");
   }, 1000);
 
-  console.log(cartIcon)
+
 }
 
 // add to cart button event handler
