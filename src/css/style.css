@@ -182,6 +182,20 @@ sup {
   text-decoration: none;
   color: var(--dark-grey);
 }
+ ul {
+  display: flex;
+  flex-flow: wrap;
+
+  list-style-type: none;
+  max-width: fit-content;
+  
+}
+li {
+    flex: 1 1 33%;
+      margin: 0.25em;
+      padding: 0.5em;
+      border: 1px solid var(--light-grey);
+}
 /* Styles for product lists */
 .product-card {
   flex: 1 1 45%;
@@ -189,6 +203,9 @@ sup {
   padding: 0.5em;
   border: 1px solid var(--light-grey);
   max-width: 250px;
+}
+.product-card li {
+  list-style-type: none;
 }
 .product-card h2,
 .product-card h3,

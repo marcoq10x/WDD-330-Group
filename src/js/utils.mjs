@@ -36,8 +36,12 @@ export function renderListWithTemplate(
   position = "afterbegin",
   clear = true
 ) {
+
   const htmlStrings = list.map((item) => templateFn(item));
   const filter = filterProducts(htmlStrings);
+  const listTitle = document.getElementById("list-title")
+  const category = getParam("category");
+  listTitle.innerHTML = category.charAt(0).toUpperCase() + category.slice(1) ;
   document.getElementById(parentElement).insertAdjacentHTML(position, filter.join(""));
 }
 
