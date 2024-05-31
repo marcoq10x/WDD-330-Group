@@ -1,4 +1,3 @@
-
 import { findProductById } from "./productData.mjs";
 import { getParam, getLocalStorage, setLocalStorage, loadHeaderFooter, updateCartBadge } from "./utils.mjs";
 
@@ -6,7 +5,6 @@ export default async function productDetails(productID) {
   let productData = await findProductById(productID);
   renderProductDetails(productData);
   document.getElementById("addToCart").addEventListener("click", addToCartHandler);
- 
 }
 
 export function addProductToCart(product) {
@@ -26,7 +24,7 @@ export function addProductToCart(product) {
 function renderProductDetails(productData) {
   document.querySelector("#productName").innerHTML = productData.Brand.Name;
   document.querySelector("#productNameWithoutBrand").innerHTML = productData.NameWithoutBrand;
-  document.querySelector("#productImage").src = productData.Image;
+  document.querySelector("#productImage").src = productData.Images.PrimaryLarge;
   document.querySelector("#productImage").setAttribute("alt", productData.Name);
   document.querySelector("#productRetailPrice").innerHTML = `Suggested Price: $ <span class="strikethrough">${productData.SuggestedRetailPrice}</span>`;
   document.querySelector("#productFinalPrice").innerHTML = `<strong>Final Price: $ ${productData.FinalPrice}</strong>`;
@@ -81,14 +79,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 // animates the cart icon when a product is added to the cart
 function animateCart() {
   const cartIcon = document.querySelector(".cart");
-  console.log("Cart Icon" , cartIcon);
   cartIcon.classList.add("cart-animation");
-  console.log("Cart Icon" , cartIcon);
-  setTimeout(() => {
+
+  setTimeout(() => { 
     cartIcon.classList.remove("cart-animation");
   }, 1000);
 
-  console.log(cartIcon)
+
 }
 
 // add to cart button event handler
@@ -108,5 +105,4 @@ async function addToCartHandler(e) {
 
 const productId = getParam("product");
 productDetails(productId);
-
 

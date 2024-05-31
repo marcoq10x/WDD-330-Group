@@ -26,8 +26,7 @@ export function setClick(selector, callback) {
 export function getParam(param) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const product = urlParams.get(param);
-  return product;
+  return urlParams.get(param);
 }
 
 export function renderListWithTemplate(
@@ -37,8 +36,12 @@ export function renderListWithTemplate(
   position = "afterbegin",
   clear = true
 ) {
+
   const htmlStrings = list.map((item) => templateFn(item));
   const filter = filterProducts(htmlStrings);
+  const listTitle = document.getElementById("list-title")
+  const category = getParam("category");
+  listTitle.innerHTML = category.charAt(0).toUpperCase() + category.slice(1) ;
   document.getElementById(parentElement).insertAdjacentHTML(position, filter.join(""));
 }
 
@@ -72,9 +75,7 @@ export async function renderWithTemplate(templateFn, parentElement, data, callba
    
     const badgeNum = getLocalStorage("num-cart")
     badge.innerText = badgeNum
-    console.log(badgeNum);
     if (badgeNum < 1) {
-      console.log("DO WE GET HERE", badgeNum);
       badge.hidden = true;
     }
 }
@@ -93,7 +94,6 @@ export function loadHeaderFooter (){
 
 export function updateCartBadge(addToCart) {
   let cartItems = getLocalStorage("num-cart");
-  console.log("before: ", cartItems);
 
   if(addToCart){
     cartItems++;
@@ -104,7 +104,6 @@ export function updateCartBadge(addToCart) {
       cartItems = 0;
     }
   }
-    console.log("after: ", cartItems);
   setLocalStorage("num-cart", cartItems);
   loadHeaderFooter();
 }

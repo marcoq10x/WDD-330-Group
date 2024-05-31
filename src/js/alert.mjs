@@ -17,7 +17,6 @@ export async function getAlerts() {
 export async function buildAlerts() {
   const alerts = await getAlerts();
   try {
-    console.log(alerts)
       if (alerts.length > 0) {
         let alertCard = `<section id="alertSection" class="alert-list">`;
         for (let alert of alerts){
@@ -30,8 +29,6 @@ export async function buildAlerts() {
       }
 
   } catch (error) {
-
-    console.log("No alert and error is caught")
   return; // No current alerts no error
 
   }
