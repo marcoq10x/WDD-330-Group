@@ -30,9 +30,9 @@ export async function removeFromCartHandler(e) {
   const newCart = oldCart.filter(item => item.Id !== productData);
   localStorage.clear();
   if (newCart.length > 0) { // don't set an empty key to localStorage
-      setLocalStorage("so-cart", newCart);
+    setLocalStorage("so-cart", newCart);
   }
-    renderCartContents();
+  renderCartContents();
 }
 
 function cartItemTemplate(item) {
