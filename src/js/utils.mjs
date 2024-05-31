@@ -72,9 +72,7 @@ export async function renderWithTemplate(templateFn, parentElement, data, callba
    
     const badgeNum = getLocalStorage("num-cart")
     badge.innerText = badgeNum
-    console.log(badgeNum);
     if (badgeNum < 1) {
-      console.log("DO WE GET HERE", badgeNum);
       badge.hidden = true;
     }
 }
@@ -93,7 +91,6 @@ export function loadHeaderFooter (){
 
 export function updateCartBadge(addToCart) {
   let cartItems = getLocalStorage("num-cart");
-  console.log("before: ", cartItems);
 
   if(addToCart){
     cartItems++;
@@ -104,7 +101,6 @@ export function updateCartBadge(addToCart) {
       cartItems = 0;
     }
   }
-    console.log("after: ", cartItems);
   setLocalStorage("num-cart", cartItems);
   loadHeaderFooter();
 }

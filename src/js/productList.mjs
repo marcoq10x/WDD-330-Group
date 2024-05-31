@@ -8,7 +8,7 @@ export default async function productList(selector, category) {
 
 function productItemTemplate(item) {
   return `<li class="product-card">
-    <a href="/product_pages/?product=${item.Id}">
+    <a href="/product-list/index.html/?product=${item.Id}">
       <img
         src="${item.Image}"
       />

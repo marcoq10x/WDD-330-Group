@@ -5,7 +5,6 @@ export default async function productDetails(productID) {
   let productData = await findProductById(productID);
   renderProductDetails(productData);
   document.getElementById("addToCart").addEventListener("click", addToCartHandler);
- 
 }
 
 export function addProductToCart(product) {
@@ -107,5 +106,4 @@ async function addToCartHandler(e) {
 
 const productId = getParam("product");
 productDetails(productId);
-
 
