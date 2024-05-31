@@ -24,7 +24,7 @@ export function addProductToCart(product) {
 function renderProductDetails(productData) {
   document.querySelector("#productName").innerHTML = productData.Brand.Name;
   document.querySelector("#productNameWithoutBrand").innerHTML = productData.NameWithoutBrand;
-  document.querySelector("#productImage").src = productData.Image;
+  document.querySelector("#productImage").src = productData.Images.PrimaryLarge;
   document.querySelector("#productImage").setAttribute("alt", productData.Name);
   document.querySelector("#productRetailPrice").innerHTML = `Suggested Price: $ <span class="strikethrough">${productData.SuggestedRetailPrice}</span>`;
   document.querySelector("#productFinalPrice").innerHTML = `<strong>Final Price: $ ${productData.FinalPrice}</strong>`;
@@ -63,6 +63,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (productID) {
     try {
       let productData = await findProductById(productID);
+      console.log("PRODUCT DATA: ", productData)
       renderProductDetails(productData);
       calculateDiscount();
       loadHeaderFooter()
