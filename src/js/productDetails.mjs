@@ -1,4 +1,3 @@
-
 import { findProductById } from "./productData.mjs";
 import { getParam, getLocalStorage, setLocalStorage, loadHeaderFooter, updateCartBadge } from "./utils.mjs";
 
