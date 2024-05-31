@@ -7,5 +7,10 @@
   "message": "This is only a test # 2",
   "background": "red",
   "color": "white"
+},
+{
+  "message": "This is only a test # 3",
+  "background": "green",
+  "color": "white"
 }
 ]

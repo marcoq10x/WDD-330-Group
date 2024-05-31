@@ -15,7 +15,10 @@ export function addProductToCart(product) {
   animateCart();
   cartItems[product.Id] = product;
   setLocalStorage("so-cart", cartItems);
-  updateCartBadge(true)
+
+  setTimeout(() => { // necessary for the cart shake animation
+    updateCartBadge(true);
+  }, 1000);
 }
 
 
@@ -78,10 +81,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 // animates the cart icon when a product is added to the cart
 function animateCart() {
   const cartIcon = document.querySelector(".cart");
+  console.log("Cart Icon" , cartIcon);
   cartIcon.classList.add("cart-animation");
+  console.log("Cart Icon" , cartIcon);
   setTimeout(() => {
     cartIcon.classList.remove("cart-animation");
   }, 1000);
+
+  console.log(cartIcon)
 }
 
 // add to cart button event handler
