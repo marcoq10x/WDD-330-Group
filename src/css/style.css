@@ -114,6 +114,22 @@ button {
 .cart svg {
   width: 25px;
 }
+
+sup {
+  position: absolute;
+  top: .3em;
+  right: -0.1em;
+  height: 1.05em;
+  width: 1.05em;
+  background-color: rgb(208, 143, 89);
+  text-align: center;
+  line-height: 1.05em;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 1em;
+  box-shadow: 0 0 5px rgb(0, 0, 0, 0.3);
+}
+
 .cart:hover svg {
   fill: gray;
 }
@@ -151,6 +167,7 @@ button {
   max-width: 600px;
   margin: auto;
 }
+
 .products {
   padding: 0.5em;
 }

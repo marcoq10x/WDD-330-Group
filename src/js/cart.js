@@ -1,4 +1,6 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, loadHeaderFooter, updateCartBadge} from "./utils.mjs";
+
+loadHeaderFooter();
 
 function renderCartContents() {
  const cartList = document.querySelector(".cart-product-list");
@@ -21,6 +23,21 @@ function renderCartContents() {
 
 export async function removeFromCartHandler(e) {
   e.preventDefault(); // Prevents default button click behavior
+
+  // get the item.Id for the respective remove button
+  const productData = e.currentTarget.getAttribute('data-product');
+
+  // get the cart, remove the item, and then save the new cart.
+  let oldCart = Object.values(getLocalStorage("so-cart"));
+  const newCart = oldCart.filter(item => item.Id !== productData);
+
+  if (newCart.length > 0){ // don't set an empty key to localStorage
+     setLocalStorage("so-cart", newCart);
+  } else {
+    localStorage.removeItem("so-cart")
+  }
+  updateCartBadge(false)
+    renderCartContents();
 
   // get the item.Id for the respective remove button
   const productData = e.currentTarget.getAttribute('data-product');
