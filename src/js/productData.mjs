@@ -5,7 +5,7 @@ export function convertToJson(res) {
     return res.json();
   } else {
     throw new Error("Bad Response");
-  }
+  } 
 }
 
 export async function getData(category = "tents") {

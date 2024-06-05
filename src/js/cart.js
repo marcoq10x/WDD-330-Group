@@ -25,7 +25,7 @@ export async function removeFromCartHandler(e) {
   e.preventDefault(); // Prevents default button click behavior
 
   // get the item.Id for the respective remove button
-  const productData = e.currentTarget.getAttribute('data-product');
+  const productData = e.currentTarget.getAttribute("data-product");
 
   // get the cart, remove the item, and then save the new cart.
   let oldCart = Object.values(getLocalStorage("so-cart"));
