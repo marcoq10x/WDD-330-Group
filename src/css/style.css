@@ -114,6 +114,9 @@ button {
 .cart svg {
   width: 25px;
 }
+.cart:hover svg {
+  fill: gray;
+}
 
 sup {
   position: absolute;
@@ -128,10 +131,6 @@ sup {
   font-weight: bold;
   font-size: 1em;
   box-shadow: 0 0 5px rgb(0, 0, 0, 0.3);
-}
-
-.cart:hover svg {
-  fill: gray;
 }
 
 @keyframes shake {
@@ -167,39 +166,28 @@ sup {
   max-width: 600px;
   margin: auto;
 }
-
 .products {
   padding: 0.5em;
 }
-.category-list {
+.product-list {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
   list-style-type: none;
   padding: 0;
 }
-.category-list a {
+.product-list a {
   text-decoration: none;
   color: var(--dark-grey);
 }
- .category-list ul {
-  display: flex;
-  flex-flow: wrap;
-  list-style-type: none;
-  max-width: fit-content;
-  
-}
-
 /* Styles for product lists */
-.category-list li {
+.product-card {
   flex: 1 1 45%;
   margin: 0.25em;
   padding: 0.5em;
   border: 1px solid var(--light-grey);
   max-width: 250px;
-  list-style-type: none;
 }
-
 .product-card h2,
 .product-card h3,
 .product-card p {
