@@ -1,5 +1,8 @@
 import {getLocalStorage} from "./utils.mjs";
 
+function packageItems(items){
+
+}
 
 const checkoutProcess = {
     key: "",
@@ -30,5 +33,8 @@ displayOrderTotals: function(){
 
 }
 
+
+
 }
+
 export default checkoutProcess;
