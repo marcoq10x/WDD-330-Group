@@ -2,9 +2,9 @@
 
 export async function getAlerts() {
   try {
-    const result = await fetch('../json/alerts.json');
+    const result = await fetch("../json/alerts.json");
     if(!result.ok) {
-      throw new Error ('Problem fetching alerts')
+      throw new Error ("Problem fetching alerts")
     }
     const data = await result.json();
     return data;
@@ -24,7 +24,7 @@ export async function buildAlerts() {
         }
         alertCard += `</section>`
         const mainEl = document.querySelector("main");
-         mainEl.insertAdjacentHTML('afterbegin', alertCard);
+         mainEl.insertAdjacentHTML("afterbegin", alertCard);
          return
       }
 
