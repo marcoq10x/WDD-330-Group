@@ -7,6 +7,7 @@
   --tertiary-color: #a4b8c4;
   --light-grey: #d0d0d0;
   --dark-grey: #303030;
+  --red: red;
 
   /* sizes */
   --font-base: 18px;
@@ -99,7 +100,7 @@ button {
   text-decoration: line-through;
 }
 .discount {
-  color: red;
+  color: var(--red);
 }
 
 /* End utility classes */
