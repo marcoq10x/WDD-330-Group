@@ -8,8 +8,8 @@
 
     <title>Sleep Outside | Checkout</title>
 
-    <link rel="stylesheet" href="/src/css/style.css" />
-    <script src="/js/main.js" type="module"></script>
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/checkout.js" type="module"></script>
 
   </head>
   
@@ -26,38 +26,39 @@
               <legend>Shipping</legend>
               <div class="checkout__name">
                 <label for="fname">First Name</label>
-                <input name="fname" required />
+                <input name="fname" value="Anthon" required />
                 <label for="lname">Last Name</label>
-                <input name="lname" required />
+                <input name="lname" value="Brown" required />
               </div>
               <div class="checkout__address">
                 <label for="street">Street</label>
-                <input name="street" required />
+                <input name="street" value="450 Druid Hill" required />
                 <label for="city">City</label>
-                <input name="city" required />
+                <input name="city" value="Mountville" required />
                 <label for="state">State</label>
-                <input name="state" required />
+                <input name="state" value="PA" required />
                 <label for="zip">Zip</label>
-                <input name="zip" id="zip" required />
+                <input name="zip" id="zip" value="17554" required />
               </div>
             </fieldset>
             <fieldset>
               <legend>Payment</legend>
               <label for="cardNumber">Card number</label>
-              <input name="cardNumber" required />
+              <input name="cardNumber" value="1234123412341234" required />
               <label for="expiration">Expiration</label>
-              <input name="expiration" required />
-              <label for="code">Security Code</label>
-              <input name="code" required />
+              <input name="expiration" value="6/30/2024" required />
+              <label for="code" >Security Code</label>
+              <input name="code" value="123" required />
             </fieldset>
             <fieldset class="checkout-summary">
               <legend>Order Summary</legend>
               <ul>
+                <span id="num-items"> items in cart</span><br><br>
                 <li>
-                  <label for="cartTotal"
-                  >Item Subtotal(<span id="num-items"></span>)</label
+                  <label for="cartSubTotal"
+                  >Item Subtotal</label
                   >
-                  <p name="cartTotal" id="cartTotal"></p>
+                  <p name="cartSubTotal" id="cartSubTotal"></p>
                 </li>
                 <li>
                   <label for="shipping">Shipping Estimate</label>
