@@ -108,3 +108,24 @@ export function updateCartBadge(addToCart) {
   loadHeaderFooter();
 }
 
+export function alertMessage(message, scroll=true){
+   
+
+    console.log("UTLI: 114: Message", message)
+  const alert = document.createElement("div")
+  alert.classList.add('alert')
+  alert.innerHTML = `${message}<button>X</button>`
+
+  alert.addEventListener('click', function(e) {
+    if(e.target.innerText) {
+      mainEl.removeChild(this);
+    }
+  })
+  const mainEl = document.getElementById("main");
+  mainEl.prepend(alert);
+  if(scroll){
+    window.scrollTo(0,0)
+  }
+}
+
+

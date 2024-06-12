@@ -1,4 +1,4 @@
-import {getLocalStorage} from "./utils.mjs";
+import {alertMessage, getLocalStorage} from "./utils.mjs";
 import { checkout } from "./externalServices.mjs"
 
 
@@ -107,6 +107,7 @@ getSubTotal: function () {
   },
 
   checkout: async function (form) {
+
     const json = formDataToJSON(form);
 
     json.orderDate = new Date();
@@ -115,11 +116,13 @@ getSubTotal: function () {
     json.shipping = this.shipping;
     json.items = packageItems(this.list);
 
-   
     try {
-      const res = await checkout(json);
-      console.log(res);
+      await checkout(json);
+      localStorage.clear();
+      window.location.href = "/checkout/success.html"
+
     } catch (error) {
+      alertMessage(error);
     console.error(error);
     }
   },
