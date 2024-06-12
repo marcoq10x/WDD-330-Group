@@ -72,11 +72,11 @@ export async function renderWithTemplate(templateFn, parentElement, data, callba
     }
         // Render the updated Cart Bage
     const badge = document.querySelector("sup");
-   
-    const badgeNum = getLocalStorage("num-cart")
-    badge.innerText = badgeNum
-    if (badgeNum < 1) {
-      badge.hidden = true;
+    let badgeNum
+    if(getLocalStorage("so-cart")){
+      badgeNum = parseInt(Object.keys(getLocalStorage("so-cart")).length);
+      badge.innerText = badgeNum
+      badge.hidden = false;
     }
 }
 
@@ -92,26 +92,10 @@ export function loadHeaderFooter (){
 }
 
 
-export function updateCartBadge(addToCart) {
-  let cartItems = getLocalStorage("num-cart");
-
-  if(addToCart){
-    cartItems++;
-  } else {
-    if (cartItems > 0) {
-      cartItems--;
-    } else {
-      cartItems = 0;
-    }
-  }
-  setLocalStorage("num-cart", cartItems);
-  loadHeaderFooter();
-}
-
 export function alertMessage(message, scroll=true){
    
 
-    console.log("UTLI: 114: Message", message)
+
   const alert = document.createElement("div")
   alert.classList.add('alert')
   alert.innerHTML = `${message}<button>X</button>`

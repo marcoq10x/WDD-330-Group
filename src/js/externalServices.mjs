@@ -3,7 +3,7 @@ const baseURL = import.meta.env.VITE_SERVER_URL;
 export function convertToJson(res) {
 
   const jsonResponse =  res.json();
-  console.log("ES:6 json error", jsonResponse)
+
   if (res.ok) {
 
     return jsonResponse
