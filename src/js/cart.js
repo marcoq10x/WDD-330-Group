@@ -12,6 +12,7 @@ function renderCartContents() {
     const cartAry = Object.values(cartItems);
     const htmlItems = cartAry.map((item) => cartItemTemplate(item));
     cartList.innerHTML = htmlItems.join("");
+    addTotalToCart();
 
     // get all remove item buttons and then add event listener to each
     const removeBtns = document.querySelectorAll(".cart-card__removeBtn");
@@ -61,6 +62,15 @@ function cartItemTemplate(item) {
     </svg>
   </button>
   </li>`;
+}
+
+function addTotalToCart() {
+  const cartItems = getLocalStorage("so-cart");
+  const cartAry = Object.values(cartItems);
+  console.log(cartAry);
+  const total = cartAry.reduce((acc, item) => acc + item.FinalPrice, 1);
+  const totalEl = document.querySelector(".cart-total");
+  totalEl.innerHTML = `Total: $${total}`;
 }
 
 renderCartContents();

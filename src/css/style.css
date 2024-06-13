@@ -31,6 +31,9 @@ header {
   justify-content: space-between;
   padding: 0 10px;
 }
+a {
+  text-decoration: none;
+}
 .logo {
   line-height: 60px;
   width: 245px;
@@ -45,7 +48,6 @@ header {
   height: 60px;
 }
 .logo a {
-  text-decoration: none;
   color: var(--font-body);
 }
 .hero {
@@ -92,6 +94,10 @@ button {
   font-size: var(--large-font);
   cursor: pointer;
 }
+button a {
+  color: white;
+}
+
 .divider {
   border-bottom: 2px solid var(--primary-color);
 }
@@ -178,7 +184,6 @@ sup {
   padding: 0;
 }
 .product-list a {
-  text-decoration: none;
   color: var(--dark-grey);
 }
 /* Styles for product lists */
@@ -221,6 +226,9 @@ sup {
   font-size: var(--small-font);
   /* max-height: 120px; */
   align-items: center;
+}
+.cart-card a {
+  color: var(--dark-grey);
 }
 
 .cart-card__image {
