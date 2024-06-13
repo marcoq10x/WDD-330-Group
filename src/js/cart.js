@@ -68,7 +68,7 @@ function addTotalToCart() {
   const cartItems = getLocalStorage("so-cart");
   const cartAry = Object.values(cartItems);
   console.log(cartAry);
-  const total = cartAry.reduce((acc, item) => acc + item.FinalPrice, 1);
+  const total = cartAry.reduce((acc, item) => acc + item.FinalPrice - 1, 1);
   const totalEl = document.querySelector(".cart-total");
   totalEl.innerHTML = `Total: $${total}`;
 }
