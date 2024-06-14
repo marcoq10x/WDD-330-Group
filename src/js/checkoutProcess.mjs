@@ -1,4 +1,4 @@
-import {getLocalStorage} from "./utils.mjs";
+import {alertMessage, getLocalStorage, setLocalStorage} from "./utils.mjs";
 import { checkout } from "./externalServices.mjs"
 
 
@@ -22,17 +22,16 @@ function packageItems(cartItems) {
 
     const items = Object.values(cartItems)
     const simplifiedItems = items.map((item) => {
-        return {
-          id: item.Id,
-          price: item.FinalPrice,
-          name: item.Name,
-          quantity: 1,
-        };
-          
-        });
-        return simplifiedItems;
-      }
+      return {
+        id: item.Id,
+        price: item.FinalPrice,
+        name: item.Name,
+        quantity: 1,
+    };
 
+  });
+  return simplifiedItems;
+}
 
 const checkoutProccess = {
     key: "",
@@ -86,11 +85,15 @@ const checkoutProccess = {
 
   },
 getTotalNumberItems: function() {
-  return  getLocalStorage("num-cart");
+  if(getLocalStorage("so-cart")){
+  return  parseInt(Object.keys(getLocalStorage("so-cart")).length);
+  }
+  return 0;
 },
 
 getSubTotal: function () {
   let subTotal = 0
+
   const simpList = packageItems(this.list)
   for(const item of simpList) {
     subTotal += item.price
@@ -107,6 +110,7 @@ getSubTotal: function () {
   },
 
   checkout: async function (form) {
+
     const json = formDataToJSON(form);
 
     json.orderDate = new Date();
@@ -115,11 +119,18 @@ getSubTotal: function () {
     json.shipping = this.shipping;
     json.items = packageItems(this.list);
 
-   
     try {
-      const res = await checkout(json);
-      console.log(res);
+      await checkout(json);
+      localStorage.removeItem("so-cart");
+      window.location.href = "/checkout/success.html"
+      
+
     } catch (error) {
+      console.log(error)
+      for (let message in error.message){
+        alertMessage(error.message[message])
+      }
+      //alertMessage(error);
     console.error(error);
     }
   },

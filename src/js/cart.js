@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage, loadHeaderFooter, updateCartBadge} from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, loadHeaderFooter} from "./utils.mjs";
 
 loadHeaderFooter();
 
@@ -7,11 +7,15 @@ function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
 
   if (!cartItems){
+     const totalEl = document.querySelector(".cart-total");
+    totalEl.innerHTML = `Total: $0.00`;
     cartList.innerHTML = "Cart is empty!";
   } else {
+
     const cartAry = Object.values(cartItems);
     const htmlItems = cartAry.map((item) => cartItemTemplate(item));
     cartList.innerHTML = htmlItems.join("");
+    addTotalToCart();
 
     // get all remove item buttons and then add event listener to each
     const removeBtns = document.querySelectorAll(".cart-card__removeBtn");
@@ -29,15 +33,18 @@ export async function removeFromCartHandler(e) {
 
   // get the cart, remove the item, and then save the new cart.
   let oldCart = Object.values(getLocalStorage("so-cart"));
+
   const newCart = oldCart.filter(item => item.Id !== productData);
+  console.log(("newcart-Length:", newCart.length));
 
   if (newCart.length > 0){ // don't set an empty key to localStorage
      setLocalStorage("so-cart", newCart);
   } else {
     localStorage.removeItem("so-cart")
   }
-  updateCartBadge(false)
-  renderCartContents();
+  //updateCartBadge(false)
+  loadHeaderFooter();
+ renderCartContents();
 }
 
 function cartItemTemplate(item) {
@@ -61,6 +68,15 @@ function cartItemTemplate(item) {
     </svg>
   </button>
   </li>`;
+}
+
+function addTotalToCart() {
+  const cartItems = getLocalStorage("so-cart");
+  const cartAry = Object.values(cartItems);
+  console.log(cartAry);
+  const total = cartAry.reduce((acc, item) => acc + item.FinalPrice - 1, 1);
+  const totalEl = document.querySelector(".cart-total");
+  totalEl.innerHTML = `Total: $${total}`;
 }
 
 renderCartContents();

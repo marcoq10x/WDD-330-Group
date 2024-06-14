@@ -72,11 +72,11 @@ export async function renderWithTemplate(templateFn, parentElement, data, callba
     }
         // Render the updated Cart Bage
     const badge = document.querySelector("sup");
-   
-    const badgeNum = getLocalStorage("num-cart")
-    badge.innerText = badgeNum
-    if (badgeNum < 1) {
-      badge.hidden = true;
+    let badgeNum
+    if(getLocalStorage("so-cart")){
+      badgeNum = parseInt(Object.keys(getLocalStorage("so-cart")).length);
+      badge.innerText = badgeNum
+      badge.hidden = false;
     }
 }
 
@@ -92,19 +92,45 @@ export function loadHeaderFooter (){
 }
 
 
-export function updateCartBadge(addToCart) {
-  let cartItems = getLocalStorage("num-cart");
+export function alertMessage(message, scroll=true){
+   
+  const alert = document.createElement("div")
+  alert.classList.add('alert')
+  alert.innerHTML = `<p>${message}<button>X</button></p>`
 
-  if(addToCart){
-    cartItems++;
-  } else {
-    if (cartItems > 0) {
-      cartItems--;
-    } else {
-      cartItems = 0;
+  alert.addEventListener('click', function(e) {
+    if(e.target.innerText) {
+      mainEl.removeChild(this);
+    }
+  })
+  const mainEl = document.getElementById("main");
+  mainEl.prepend(alert);
+  if(scroll){
+    window.scrollTo(0,0)
+  }
+}
+
+export function findProductQtyByID(cartItems, searchId) {
+  if(Object.keys(cartItems).length){
+  let qty = 0;
+  let largestIndex = -1;
+console.log(searchId)
+  console.log("this is cartITems.length", Object.keys(cartItems).length);
+    console.log("this is cartiTsems: ", cartItems[1].Id);
+
+  for (let i = 1; i <= Object.keys(cartItems).length; i++) {
+    console.log(cartItems[i])
+    if(cartItems[i].Id === searchId){
+      console.log("QTY: ", qty)
+      qty++;
+      largestIndex = i;
     }
   }
-  setLocalStorage("num-cart", cartItems);
-  loadHeaderFooter();
+  return [qty, largestIndex]
+  } else {
+    return [0,0]
+  }
+
 }
+
 
