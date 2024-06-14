@@ -1,8 +1,8 @@
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
-export function convertToJson(res) {
+export async function convertToJson(res) {
 
-  const jsonResponse =  res.json();
+  const jsonResponse =  await res.json();
 
   if (res.ok) {
 
@@ -10,7 +10,7 @@ export function convertToJson(res) {
       
   } else {
 
-  throw { name: 'servicesError', message: error };
+  throw { name: 'servicesError', message: jsonResponse };
   } 
 }
 
@@ -34,7 +34,15 @@ export async function checkout(payload) {
     },
     body: JSON.stringify(payload),
   };
-      return await fetch(baseURL + "checkout/", options).then(convertToJson);
+  // try {
+  //   const res = await fetch(baseURL + "checkout/", options).then(convertToJson);
+  //   return res;
 
+  // }catch (error) {
+  // console.error();
+  // }
+
+      const res = await fetch(baseURL + "checkout/", options).then(convertToJson);
+    return res;
 
 }

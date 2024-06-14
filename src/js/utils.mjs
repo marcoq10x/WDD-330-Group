@@ -94,11 +94,9 @@ export function loadHeaderFooter (){
 
 export function alertMessage(message, scroll=true){
    
-
-
   const alert = document.createElement("div")
   alert.classList.add('alert')
-  alert.innerHTML = `${message}<button>X</button>`
+  alert.innerHTML = `<p>${message}<button>X</button></p>`
 
   alert.addEventListener('click', function(e) {
     if(e.target.innerText) {
@@ -110,6 +108,29 @@ export function alertMessage(message, scroll=true){
   if(scroll){
     window.scrollTo(0,0)
   }
+}
+
+export function findProductQtyByID(cartItems, searchId) {
+  if(Object.keys(cartItems).length){
+  let qty = 0;
+  let largestIndex = -1;
+console.log(searchId)
+  console.log("this is cartITems.length", Object.keys(cartItems).length);
+    console.log("this is cartiTsems: ", cartItems[1].Id);
+
+  for (let i = 1; i <= Object.keys(cartItems).length; i++) {
+    console.log(cartItems[i])
+    if(cartItems[i].Id === searchId){
+      console.log("QTY: ", qty)
+      qty++;
+      largestIndex = i;
+    }
+  }
+  return [qty, largestIndex]
+  } else {
+    return [0,0]
+  }
+
 }
 
 

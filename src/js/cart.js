@@ -7,6 +7,8 @@ function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
 
   if (!cartItems){
+     const totalEl = document.querySelector(".cart-total");
+    totalEl.innerHTML = `Total: $0.00`;
     cartList.innerHTML = "Cart is empty!";
   } else {
 
