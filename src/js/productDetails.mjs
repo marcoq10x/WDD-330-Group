@@ -15,11 +15,14 @@ export function addProductToCart(product) {
   if (!cartItems){
     cartItems = {};
     cartQty = 0;
+    cartItems[cartQty] = product;
+  }
+  else {
+    cartQty = parseInt(Object.keys(cartItems).length);
+    cartItems[cartQty] = product;
   }
 
   // Do this everytime
-  cartQty = parseInt(Object.keys(cartItems).length);
-  cartItems[cartQty + 1] = product;
   animateCart();
   setLocalStorage("so-cart", cartItems);
   

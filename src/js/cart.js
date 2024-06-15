@@ -24,10 +24,11 @@ function renderCartContents() {
     }, [])
 
     const qtyArr = getCartQtyArr(filteredCart) // check for the quanties of each item filtered returns an array of qty's
-    
+
     const htmlItems = filteredCart.map((item, index) => {
       return cartItemTemplate(item, qtyArr[index]) // adds the qty to the template
     });
+
     cartList.innerHTML = htmlItems.join("");
     addTotalToCart();
 
@@ -44,22 +45,20 @@ export async function removeFromCartHandler(e) {
   e.preventDefault(); // Prevents default button click behavior
 
   // get the item.Id for the respective remove button
-  const productData = e.currentTarget.getAttribute("data-product");
+  const removeID = e.currentTarget.getAttribute("data-product");
+  const qtyIndexTouple = findProductQtyByID(removeID)
 
-  // get the cart, remove the item, and then save the new cart.
-  let oldCart = Object.values(getLocalStorage("so-cart"));
+  const cart = Object.values(getLocalStorage("so-cart"));
+  cart.splice((qtyIndexTouple[1]), 1); // remove the item from the cart
 
-  const newCart = oldCart.filter(item => item.Id !== productData);
-  console.log(("newcart-Length:", newCart.length));
 
-  if (newCart.length > 0){ // don't set an empty key to localStorage
-     setLocalStorage("so-cart", newCart);
+  if (cart.length > 0){ // don't set an empty key to localStorage
+     setLocalStorage("so-cart", cart);
   } else {
     localStorage.removeItem("so-cart")
   }
-  //updateCartBadge(false)
-  loadHeaderFooter();
- renderCartContents();
+  loadHeaderFooter(); // updates the cart badge
+  renderCartContents();
 }
 
 function cartItemTemplate(item, qty) {
@@ -89,7 +88,7 @@ function cartItemTemplate(item, qty) {
 function addTotalToCart() {
   const cartItems = getLocalStorage("so-cart");
   const cartAry = Object.values(cartItems);
-  console.log("Cart ARY", cartAry);
+
   const total = cartAry.reduce((acc, item) => acc + item.FinalPrice - 1, 1);
   const totalEl = document.querySelector(".cart-total");
   totalEl.innerHTML = `Total: $${total}`;

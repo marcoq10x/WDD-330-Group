@@ -117,7 +117,7 @@ export function findProductQtyByID(searchId) {
   let qty = 0;
   let largestIndex = -1;
 
-  for (let i = 1; i <= Object.keys(cartItems).length; i++) {
+  for (let i = 0; i < Object.keys(cartItems).length; i++) {
     if(cartItems[i].Id === searchId){
       qty++;
       largestIndex = i;
@@ -125,15 +125,16 @@ export function findProductQtyByID(searchId) {
   }
   return [qty, largestIndex];
 }
- console.error("Could not find produce in the cart")
+ console.error("Could not find product in the cart")
 }
 
 export function getCartQtyArr(filteredCart) {
   let cartQtyArr = []
 
   filteredCart.forEach(item => {
+
     const cartTuple = findProductQtyByID(item.Id)
-    cartQtyArr.push(cartTuple[0]);
+    cartQtyArr.push(cartTuple[0]); // [qty, largestIndex]
   })
   return cartQtyArr;
 }
