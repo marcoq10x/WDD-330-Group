@@ -1,5 +1,5 @@
 import { findProductById } from "./externalServices.mjs";
-import { getParam, getLocalStorage, setLocalStorage, loadHeaderFooter, findProductQtyByID, alertMessage} from "./utils.mjs";
+import { getParam, getLocalStorage, setLocalStorage, loadHeaderFooter, alertMessage} from "./utils.mjs";
 
 export default async function productDetails(productID) {
   let productData = await findProductById(productID);
