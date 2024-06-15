@@ -110,27 +110,33 @@ export function alertMessage(message, scroll=true){
   }
 }
 
-export function findProductQtyByID(cartItems, searchId) {
-  if(Object.keys(cartItems).length){
+export function findProductQtyByID(searchId) {
+
+  const cartItems = getLocalStorage("so-cart");
+  if(cartItems){
   let qty = 0;
   let largestIndex = -1;
-console.log(searchId)
-  console.log("this is cartITems.length", Object.keys(cartItems).length);
-    console.log("this is cartiTsems: ", cartItems[1].Id);
 
   for (let i = 1; i <= Object.keys(cartItems).length; i++) {
-    console.log(cartItems[i])
     if(cartItems[i].Id === searchId){
-      console.log("QTY: ", qty)
       qty++;
       largestIndex = i;
     }
   }
-  return [qty, largestIndex]
-  } else {
-    return [0,0]
-  }
-
+  return [qty, largestIndex];
 }
+ console.error("Could not find produce in the cart")
+}
+
+export function getCartQtyArr(filteredCart) {
+  let cartQtyArr = []
+
+  filteredCart.forEach(item => {
+    const cartTuple = findProductQtyByID(item.Id)
+    cartQtyArr.push(cartTuple[0]);
+  })
+  return cartQtyArr;
+}
+
 
 

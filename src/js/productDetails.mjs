@@ -8,30 +8,28 @@ export default async function productDetails(productID) {
 }
 
 export function addProductToCart(product) {
-  console.log(product);
+
   let cartItems = getLocalStorage("so-cart");
   let  cartQty
 
   if (!cartItems){
     cartItems = {};
     cartQty = 0;
-  } else {
-    console.log("ITMES IN SO-CART: ", parseInt(Object.keys(cartItems)));
-    cartQty = parseInt(Object.keys(cartItems).length);
   }
-  const productQty = findProductQtyByID(cartItems, product.Id);
-  console.log("THIS IS THE TUPLE:", productQty);
-  animateCart();
-  cartItems[cartQty + 1] = product;
-  setLocalStorage("so-cart", cartItems);
 
+  // Do this everytime
+  cartQty = parseInt(Object.keys(cartItems).length);
+  cartItems[cartQty + 1] = product;
+  animateCart();
+  setLocalStorage("so-cart", cartItems);
+  
   setTimeout(() => { // necessary for the cart shake animation
   
-    loadHeaderFooter()//updateCartBadge(true);
+    loadHeaderFooter()//updateCartBadge;
      alertMessage("Added to cart")
   }, 1000);
 
-setTimeout(() => {
+setTimeout(() => { // added to cart alert
      document.querySelector(".alert").remove();
   }, 3000);
 }

@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage, loadHeaderFooter} from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, loadHeaderFooter, findProductQtyByID, getCartQtyArr} from "./utils.mjs";
 
 loadHeaderFooter();
 
@@ -7,15 +7,30 @@ function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
 
   if (!cartItems){
-     const totalEl = document.querySelector(".cart-total");
+    // Cart is Empty
+    const totalEl = document.querySelector(".cart-total");
     totalEl.innerHTML = `Total: $0.00`;
     cartList.innerHTML = "Cart is empty!";
   } else {
+    //Cart is not empty
+    const cartAry = Object.values(cartItems); // create an array from the object
 
-    const cartAry = Object.values(cartItems);
-    const htmlItems = cartAry.map((item) => cartItemTemplate(item));
+    const filteredCart = cartAry.reduce((renderItems, thisItem) => { // filter the cart so each item is only displayed once
+      const i = renderItems.find(item => item.Id === thisItem.Id);
+      if (!i) {
+        renderItems.push(thisItem);
+      }
+      return renderItems;
+    }, [])
+
+    const qtyArr = getCartQtyArr(filteredCart) // check for the quanties of each item filtered returns an array of qty's
+    
+    const htmlItems = filteredCart.map((item, index) => {
+      return cartItemTemplate(item, qtyArr[index]) // adds the qty to the template
+    });
     cartList.innerHTML = htmlItems.join("");
     addTotalToCart();
+
 
     // get all remove item buttons and then add event listener to each
     const removeBtns = document.querySelectorAll(".cart-card__removeBtn");
@@ -47,7 +62,8 @@ export async function removeFromCartHandler(e) {
  renderCartContents();
 }
 
-function cartItemTemplate(item) {
+function cartItemTemplate(item, qty) {
+
   return `<li class="cart-card divider">
     <a href="#" class="cart-card__image">
       <img
@@ -59,7 +75,7 @@ function cartItemTemplate(item) {
       <h2 class="card__name">${item.Name}</h2>
     </a>
     <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-    <p class="cart-card__quantity">qty: 1</p>
+    <p class="cart-card__quantity">QTY: ${qty}</p>
     <p class="cart-card__price">$${item.FinalPrice}</p>
     <button id="removeFromCart" class="cart-card__removeBtn" data-product=${item.Id}><span>Remove Item</span>
     <svg id="removeIcon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256" width="50px" height="50px"><g fill="#000000" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(3.2,3.2)">
@@ -73,7 +89,7 @@ function cartItemTemplate(item) {
 function addTotalToCart() {
   const cartItems = getLocalStorage("so-cart");
   const cartAry = Object.values(cartItems);
-  console.log(cartAry);
+  console.log("Cart ARY", cartAry);
   const total = cartAry.reduce((acc, item) => acc + item.FinalPrice - 1, 1);
   const totalEl = document.querySelector(".cart-total");
   totalEl.innerHTML = `Total: $${total}`;
