@@ -59,7 +59,7 @@ function loadTemplate (path) {
   };
 }
 
-export async function renderWithTemplate(templateFn, parentElement, data, callback, position="afterbegin", clear=true) {
+export async function renderWithTemplate(templateFn, parentElement, data, callback, position = "afterbegin", clear = true) {
     // get template using function...no need to loop this time.
     if (clear) {
         parentElement.innerHTML = "";
@@ -92,13 +92,13 @@ export function loadHeaderFooter (){
 }
 
 
-export function alertMessage(message, scroll=true){
+export function alertMessage(message, scroll = true){
    
   const alert = document.createElement("div")
-  alert.classList.add('alert')
-  alert.innerHTML = `<p>${message}<button>X</button></p>`
+  alert.classList.add("alert")
+  alert.innerHTML = `<p>${message}<span>X</span></p>`
 
-  alert.addEventListener('click', function(e) {
+  alert.addEventListener("click", function(e) {
     if(e.target.innerText) {
       mainEl.removeChild(this);
     }

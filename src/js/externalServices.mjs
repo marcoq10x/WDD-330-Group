@@ -10,7 +10,7 @@ export async function convertToJson(res) {
       
   } else {
 
-  throw { name: 'servicesError', message: jsonResponse };
+  throw { name: "servicesError", message: jsonResponse };
   } 
 }
 
