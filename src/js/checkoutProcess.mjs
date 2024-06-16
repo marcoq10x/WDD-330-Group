@@ -103,8 +103,6 @@ getSubTotal: function () {
 
   displayOrderTotals: function() {
     //once the totals are all calculated display them in the order summary page.
-      const orderTotal =  document.querySelector("#orderTotal")
-      console.log((this.orderTotal));
       orderTotal.innerHTML = `${this.orderTotal}`
   
   },
@@ -126,7 +124,6 @@ getSubTotal: function () {
       
 
     } catch (error) {
-      console.log(error)
       for (let message in error.message){
         alertMessage(error.message[message])
       }

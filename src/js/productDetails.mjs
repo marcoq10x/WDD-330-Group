@@ -1,5 +1,5 @@
 import { findProductById } from "./externalServices.mjs";
-import { getParam, getLocalStorage, setLocalStorage, loadHeaderFooter, findProductQtyByID, alertMessage} from "./utils.mjs";
+import { getParam, getLocalStorage, setLocalStorage, loadHeaderFooter, alertMessage} from "./utils.mjs";
 
 export default async function productDetails(productID) {
   let productData = await findProductById(productID);
@@ -8,30 +8,31 @@ export default async function productDetails(productID) {
 }
 
 export function addProductToCart(product) {
-  console.log(product);
+
   let cartItems = getLocalStorage("so-cart");
   let  cartQty
 
   if (!cartItems){
     cartItems = {};
     cartQty = 0;
-  } else {
-    console.log("ITMES IN SO-CART: ", parseInt(Object.keys(cartItems)));
-    cartQty = parseInt(Object.keys(cartItems).length);
+    cartItems[cartQty] = product;
   }
-  const productQty = findProductQtyByID(cartItems, product.Id);
-  console.log("THIS IS THE TUPLE:", productQty);
-  animateCart();
-  cartItems[cartQty + 1] = product;
-  setLocalStorage("so-cart", cartItems);
+  else {
+    cartQty = parseInt(Object.keys(cartItems).length);
+    cartItems[cartQty] = product;
+  }
 
+  // Do this everytime
+  animateCart();
+  setLocalStorage("so-cart", cartItems);
+  
   setTimeout(() => { // necessary for the cart shake animation
   
-    loadHeaderFooter()//updateCartBadge(true);
+    loadHeaderFooter()//updateCartBadge;
      alertMessage("Added to cart")
   }, 1000);
 
-setTimeout(() => {
+setTimeout(() => { // added to cart alert
      document.querySelector(".alert").remove();
   }, 3000);
 }
