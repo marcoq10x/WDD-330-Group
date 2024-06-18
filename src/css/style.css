@@ -277,7 +277,20 @@ sup {
 
 #removeIcon {
 margin-left: 71%;
-  
+}
+
+.alert {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.5em;
+  text-align: center;
+}
+.alert button {
+  background-color: var(--secondary-color);
+  color: white;
+  border: 0;
+  padding: 0.5em 1em;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 500px) {

@@ -96,7 +96,7 @@ export function alertMessage(message, scroll=true){
    
   const alert = document.createElement("div")
   alert.classList.add('alert')
-  alert.innerHTML = `<p>${message}<button>X</button></p>`
+  alert.innerHTML = `<span>${message}<button>X</button></span>`
 
   alert.addEventListener('click', function(e) {
     if(e.target.innerText) {

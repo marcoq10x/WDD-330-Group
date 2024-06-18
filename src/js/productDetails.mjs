@@ -27,14 +27,13 @@ export function addProductToCart(product) {
   setLocalStorage("so-cart", cartItems);
   
   setTimeout(() => { // necessary for the cart shake animation
-  
     loadHeaderFooter()//updateCartBadge;
-     alertMessage("Added to cart")
+    alertMessage("Added to cart")
   }, 1000);
 
-setTimeout(() => { // added to cart alert
-     document.querySelector(".alert").remove();
-  }, 3000);
+  setTimeout(() => { // added to cart alert
+    document.querySelector(".alert").remove();
+  }, 5000);
 }
 
 
