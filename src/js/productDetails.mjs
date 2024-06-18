@@ -25,10 +25,10 @@ export function addProductToCart(product) {
   // Do this everytime
   animateCart();
   setLocalStorage("so-cart", cartItems);
+  alertMessage("Added to cart")
   
   setTimeout(() => { // necessary for the cart shake animation
     loadHeaderFooter()//updateCartBadge;
-    alertMessage("Added to cart")
   }, 1000);
 
   setTimeout(() => { // added to cart alert
