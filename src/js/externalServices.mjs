@@ -46,3 +46,9 @@ export async function checkout(payload) {
     return res;
 
 }
+
+export async function loginRequest(email, password) {
+  const body = {email: email, password: password};
+  const res = await fetch(baseURL +"login/", body).then
+  return res;
+}

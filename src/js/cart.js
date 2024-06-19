@@ -1,12 +1,18 @@
-import { getLocalStorage, setLocalStorage, loadHeaderFooter, findProductQtyByID, getCartQtyArr} from "./utils.mjs";
+import {
+  getLocalStorage,
+  setLocalStorage,
+  loadHeaderFooter,
+  findProductQtyByID,
+  getCartQtyArr,
+} from "./utils.mjs";
 
 loadHeaderFooter();
 
 function renderCartContents() {
- const cartList = document.querySelector(".cart-product-list");
+  const cartList = document.querySelector(".cart-product-list");
   const cartItems = getLocalStorage("so-cart");
 
-  if (!cartItems){
+  if (!cartItems) {
     // Cart is Empty
     const totalEl = document.querySelector(".cart-total");
     totalEl.innerHTML = `Total: $0.00`;
@@ -15,29 +21,29 @@ function renderCartContents() {
     //Cart is not empty
     const cartAry = Object.values(cartItems); // create an array from the object
 
-    const filteredCart = cartAry.reduce((renderItems, thisItem) => { // filter the cart so each item is only displayed once
-      const i = renderItems.find(item => item.Id === thisItem.Id);
+    const filteredCart = cartAry.reduce((renderItems, thisItem) => {
+      // filter the cart so each item is only displayed once
+      const i = renderItems.find((item) => item.Id === thisItem.Id);
       if (!i) {
         renderItems.push(thisItem);
       }
       return renderItems;
-    }, [])
+    }, []);
 
-    const qtyArr = getCartQtyArr(filteredCart) // check for the quanties of each item filtered returns an array of qty's
+    const qtyArr = getCartQtyArr(filteredCart); // check for the quanties of each item filtered returns an array of qty's
 
     const htmlItems = filteredCart.map((item, index) => {
-      return cartItemTemplate(item, qtyArr[index]) // adds the qty to the template
+      return cartItemTemplate(item, qtyArr[index]); // adds the qty to the template
     });
 
     cartList.innerHTML = htmlItems.join("");
     addTotalToCart();
 
-
     // get all remove item buttons and then add event listener to each
     const removeBtns = document.querySelectorAll(".cart-card__removeBtn");
-    removeBtns.forEach(btn => {
+    removeBtns.forEach((btn) => {
       btn.addEventListener("click", removeFromCartHandler);
-    })
+    });
   }
 }
 
@@ -46,23 +52,22 @@ export async function removeFromCartHandler(e) {
 
   // get the item.Id for the respective remove button
   const removeID = e.currentTarget.getAttribute("data-product");
-  const qtyIndexTouple = findProductQtyByID(removeID)
+  const qtyIndexTouple = findProductQtyByID(removeID);
 
   const cart = Object.values(getLocalStorage("so-cart"));
-  cart.splice((qtyIndexTouple[1]), 1); // remove the item from the cart
+  cart.splice(qtyIndexTouple[1], 1); // remove the item from the cart
 
-
-  if (cart.length > 0){ // don't set an empty key to localStorage
-     setLocalStorage("so-cart", cart);
+  if (cart.length > 0) {
+    // don't set an empty key to localStorage
+    setLocalStorage("so-cart", cart);
   } else {
-    localStorage.removeItem("so-cart")
+    localStorage.removeItem("so-cart");
   }
   loadHeaderFooter(); // updates the cart badge
   renderCartContents();
 }
 
 function cartItemTemplate(item, qty) {
-
   return `<li class="cart-card divider">
     <a href="#" class="cart-card__image">
       <img
