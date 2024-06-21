@@ -11,7 +11,6 @@ export async function login(creds, redirect = "/") {
     setLocalStorage(tokenKey, token);
     window.location = redirect;
   } catch (error) {
-    console.log("Auth:18: Error: ", error);
     alertMessage(error.message.message);
   }
 }
