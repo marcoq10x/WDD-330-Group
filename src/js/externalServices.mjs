@@ -1,3 +1,5 @@
+import { getLocalStorage } from "./utils.mjs";
+
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
 export async function convertToJson(res) {
@@ -38,9 +40,24 @@ export async function checkout(payload) {
 export async function loginRequest(email, password) {
   const options = { 
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json"
+     },
     body: JSON.stringify({ email, password })
     };
+    
   const res = await fetch(baseURL + "login/", options).then(convertToJson);
+  return res;
+}
+
+export async function getOrders() {
+  const token = getLocalStorage("so-token");
+  const options = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const res = await fetch(baseURL + "orders/", options).then(convertToJson);
   return res;
 }

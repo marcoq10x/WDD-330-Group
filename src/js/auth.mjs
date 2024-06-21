@@ -25,7 +25,6 @@ export function checkLogin(redirect) {
 
   if (isValid) {
     // is token expired
-    console.log("Auth:28: Token is valid");
     window.location = redirect;
   } else {
     localStorage.removeItem(tokenKey);
