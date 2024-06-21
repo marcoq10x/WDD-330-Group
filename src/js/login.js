@@ -1,4 +1,5 @@
-import { loadHeaderFooter } from "./utils.mjs";
+import { loadHeaderFooter, getParam } from "./utils.mjs";
+import { loginRequest } from "./externalServices.mjs";
 
 loadHeaderFooter();
 
@@ -14,6 +15,6 @@ document.forms["login"].addEventListener("submit", (e) => {
 
   if (chk_status) {
     // e.target would contain our form in this case
-    login(e.target, urlParam);
+    loginRequest(e.target, urlParam);
   }
 });
