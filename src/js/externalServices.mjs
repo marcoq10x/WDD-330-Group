@@ -1,17 +1,13 @@
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
 export async function convertToJson(res) {
-
-  const jsonResponse =  await res.json();
+  const jsonResponse = await res.json();
 
   if (res.ok) {
-
-    return jsonResponse
-      
+    return jsonResponse;
   } else {
-
-  throw { name: 'servicesError', message: jsonResponse };
-  } 
+    throw { name: "servicesError", message: jsonResponse };
+  }
 }
 
 export async function getProductsByCategory(category = "tents") {
@@ -34,21 +30,13 @@ export async function checkout(payload) {
     },
     body: JSON.stringify(payload),
   };
-  // try {
-  //   const res = await fetch(baseURL + "checkout/", options).then(convertToJson);
-  //   return res;
 
-  // }catch (error) {
-  // console.error();
-  // }
-
-      const res = await fetch(baseURL + "checkout/", options).then(convertToJson);
-    return res;
-
+  const res = await fetch(baseURL + "checkout/", options).then(convertToJson);
+  return res;
 }
 
 export async function loginRequest(email, password) {
-  const body = {email: email, password: password};
-  const res = await fetch(baseURL +"login/", body).then
+  const body = { email: email, password: password };
+  const res = await fetch(baseURL + "login/", body).then;
   return res;
 }

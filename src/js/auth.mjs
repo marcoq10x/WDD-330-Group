@@ -1,6 +1,6 @@
 import { loginRequest } from "./externalServices.mjs"
 import { getLocalStorage, setLocalStorage } from "./utils.mjs"
-import jwt_decode from "jwt-decode";
+import { jwt_decode } from "jwt-decode";
 
 
 const tokenKey = "so-token";
@@ -39,7 +39,7 @@ function tokenValid (token) {
     const decode = jwt_decode(token)
     let currentDate = new Date();
 
-    if(currentDate.getTime() > decoded.exp * 1000) {
+    if(currentDate.getTime() > decode.exp * 1000) {
       // exipration is less than the current date... its expire
       console.log("Auth:39 EXPIRED TOKEN")
       return false;
