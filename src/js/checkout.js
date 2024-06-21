@@ -19,10 +19,8 @@ document.forms["checkout"].addEventListener("submit", (e) => {
   const chk_status = myForm.checkValidity();
   myForm.reportValidity();
 
-  if(chk_status) {
- // e.target would contain our form in this case
-  checkoutProcess.checkout(e.target);
+  if (chk_status) {
+    // e.target would contain our form in this case
+    checkoutProcess.checkout(e.target);
   }
- 
 });
-
