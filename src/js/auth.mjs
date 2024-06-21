@@ -1,54 +1,54 @@
-import { loginRequest } from "./externalServices.mjs"
-import { getLocalStorage, setLocalStorage } from "./utils.mjs"
-import { jwt_decode } from "jwt-decode";
-
+import { loginRequest } from "./externalServices.mjs";
+import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import * as jwtDecode from "jwt-decode";
+import { alertMessage } from "./utils.mjs";
 
 const tokenKey = "so-token";
 
-export async function login(creds, redirect = "/"){
-  console.log("Auth:3 Credd: ", creds)
-  console.log("Auth:4: Redirect", redirect)
+export async function login(creds, redirect = "/") {
+  console.log("Auth:9 Credd: ", creds);
+  console.log("Auth:10: Redirect", redirect);
 
-  const token = await loginRequest(email, password)
   try {
+    const token = await loginRequest(creds.email.value, creds.password.value);
     setLocalStorage(tokenKey, token);
     window.location = redirect;
-
   } catch (error) {
-    alertMessage(error.message.message)
+    console.log("Auth:18: Error: ", error);
+    alertMessage(error.message.message);
   }
 }
 
-export function checkLogin (redirect) {
+export function checkLogin(redirect) {
   const jwtToken = getLocalStorage(tokenKey);
-  const isValid = tokenValid(jwtToken)
+  const isValid = tokenValid(jwtToken);
 
-   if(isValid) { // is token expired
-      window.location = redirect
+  if (isValid) {
+    // is token expired
+    console.log("Auth:28: Token is valid");
+    window.location = redirect;
   } else {
-    
     localStorage.removeItem(tokenKey);
     const location = window.location;
     window.location = `/login/index.html?redirect=${location.pathname}`;
-    window.location = "/login"
+    window.location = "/login";
   }
 }
 
-function tokenValid (token) {
-  if(token){
-    const decode = jwt_decode(token)
+function tokenValid(token) {
+  if (token) {
+    const decode = jwtDecode.jwt_decode(token);
     let currentDate = new Date();
 
-    if(currentDate.getTime() > decode.exp * 1000) {
+    if (currentDate.getTime() > decode.exp * 1000) {
       // exipration is less than the current date... its expire
-      console.log("Auth:39 EXPIRED TOKEN")
+      console.log("Auth:39 EXPIRED TOKEN");
       return false;
     } else {
-       console.log("Auth:39 VALID TOKEN")
-       return true;
+      console.log("Auth:39 VALID TOKEN");
+      return true;
     }
-   
   } else {
-      return false;
+    return false;
   }
 }

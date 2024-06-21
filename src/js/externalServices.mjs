@@ -36,7 +36,11 @@ export async function checkout(payload) {
 }
 
 export async function loginRequest(email, password) {
-  const body = { email: email, password: password };
-  const res = await fetch(baseURL + "login/", body).then;
+  const options = { 
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password })
+    };
+  const res = await fetch(baseURL + "login/", options).then(convertToJson);
   return res;
 }
