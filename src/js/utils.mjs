@@ -36,20 +36,21 @@ export function renderListWithTemplate(
   position = "afterbegin",
   clear = true
 ) {
-
   const htmlStrings = list.map((item) => templateFn(item));
   const filter = filterProducts(htmlStrings);
-  const listTitle = document.getElementById("list-title")
+  const listTitle = document.getElementById("list-title");
   const category = getParam("category");
-  listTitle.innerHTML = category.charAt(0).toUpperCase() + category.slice(1) ;
-  document.getElementById(parentElement).insertAdjacentHTML(position, filter.join(""));
+  listTitle.innerHTML = category.charAt(0).toUpperCase() + category.slice(1);
+  document
+    .getElementById(parentElement)
+    .insertAdjacentHTML(position, filter.join(""));
 }
 
 export function filterProducts(products, limit = 4) {
   return products.slice(0, limit);
 }
 
-function loadTemplate (path) {
+function loadTemplate(path) {
   return async function () {
     const res = await fetch(path);
     if (res.ok) {
@@ -59,29 +60,36 @@ function loadTemplate (path) {
   };
 }
 
-export async function renderWithTemplate(templateFn, parentElement, data, callback, position="afterbegin", clear=true) {
-    // get template using function...no need to loop this time.
-    if (clear) {
-        parentElement.innerHTML = "";
-    }
-    const htmlString = await templateFn(data);
-    parentElement.insertAdjacentHTML(position, htmlString);
+export async function renderWithTemplate(
+  templateFn,
+  parentElement,
+  data,
+  callback,
+  position = "afterbegin",
+  clear = true
+) {
+  // get template using function...no need to loop this time.
+  if (clear) {
+    parentElement.innerHTML = "";
+  }
+  const htmlString = await templateFn(data);
+  parentElement.insertAdjacentHTML(position, htmlString);
 
-    if(callback) {
-        callback(data);
-    }
-        // Render the updated Cart Bage
-    const badge = document.querySelector("sup");
-    let badgeNum
-    if(getLocalStorage("so-cart")){
-      badgeNum = parseInt(Object.keys(getLocalStorage("so-cart")).length);
-      badge.innerText = badgeNum
-      badge.hidden = false;
-    }
+  if (callback) {
+    callback(data);
+  }
+  // Render the updated Cart Bage
+  const badge = document.querySelector("sup");
+  let badgeNum;
+  if (getLocalStorage("so-cart")) {
+    badgeNum = parseInt(Object.keys(getLocalStorage("so-cart")).length);
+    badge.innerText = badgeNum;
+    badge.hidden = false;
+  }
 }
 
-export function loadHeaderFooter (){
-  const headerTemplateFN = loadTemplate("/partials/header.html")
+export function loadHeaderFooter() {
+  const headerTemplateFN = loadTemplate("/partials/header.html");
   const footerTemplateFN = loadTemplate("/partials/footer.html");
 
   const headerEl = document.getElementById("header");
@@ -91,53 +99,46 @@ export function loadHeaderFooter (){
   renderWithTemplate(footerTemplateFN, footerEl);
 }
 
+export function alertMessage(message, scroll = true) {
+  const alert = document.createElement("div");
+  alert.classList.add("alert");
+  alert.innerHTML = `<span>${message}</span><button>X</button>`;
 
-export function alertMessage(message, scroll=true){
-   
-  const alert = document.createElement("div")
-  alert.classList.add('alert')
-  alert.innerHTML = `<span>${message}</span><button>X</button>`
-
-  alert.addEventListener('click', function(e) {
-    if(e.target.innerText) {
+  alert.addEventListener("click", function (e) {
+    if (e.target.innerText) {
       mainEl.removeChild(this);
     }
-  })
+  });
   const mainEl = document.getElementById("main");
   mainEl.prepend(alert);
-  if(scroll){
-    window.scrollTo(0,0)
+  if (scroll) {
+    window.scrollTo(0, 0);
   }
 }
 
 export function findProductQtyByID(searchId) {
-
   const cartItems = getLocalStorage("so-cart");
-  if(cartItems){
-  let qty = 0;
-  let largestIndex = -1;
+  if (cartItems) {
+    let qty = 0;
+    let largestIndex = -1;
 
-  for (let i = 0; i < Object.keys(cartItems).length; i++) {
-    if(cartItems[i].Id === searchId){
-      qty++;
-      largestIndex = i;
+    for (let i = 0; i < Object.keys(cartItems).length; i++) {
+      if (cartItems[i].Id === searchId) {
+        qty++;
+        largestIndex = i;
+      }
     }
+    return [qty, largestIndex];
   }
-  return [qty, largestIndex];
-}
- console.error("Could not find product in the cart")
+  console.error("Could not find product in the cart");
 }
 
 export function getCartQtyArr(filteredCart) {
-  let cartQtyArr = []
+  let cartQtyArr = [];
 
-  filteredCart.forEach(item => {
-
-    const cartTuple = findProductQtyByID(item.Id)
+  filteredCart.forEach((item) => {
+    const cartTuple = findProductQtyByID(item.Id);
     cartQtyArr.push(cartTuple[0]); // [qty, largestIndex]
-  })
+  });
   return cartQtyArr;
 }
-
-
-

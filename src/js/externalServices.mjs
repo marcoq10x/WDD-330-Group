@@ -44,17 +44,16 @@ export async function loginRequest(email, password) {
      },
     body: JSON.stringify({ email, password })
     };
-    
+
   const res = await fetch(baseURL + "login/", options).then(convertToJson);
   return res;
 }
 
-export async function getOrders() {
-  const token = getLocalStorage("so-token");
+export async function getOrders(token) {
   const options = {
     method: "GET",
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token.accessToken}`,
     },
   };
 

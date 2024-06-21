@@ -15,6 +15,6 @@ document.forms["login"].addEventListener("submit", (e) => {
 
   if (chk_status) {
     // e.target would contain our form in this case
-    login(e.target);
+    login(e.target, urlParam);
   }
 });
